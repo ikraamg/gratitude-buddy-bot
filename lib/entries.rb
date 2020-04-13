@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Entries
   attr_reader :user, :file
   @@users = []
@@ -46,8 +44,6 @@ class Entries
   # end
   # private
 end
-
-puts Entries.users
 
 # iks = Entries.new('Ikraam')
 # print Entries.users
