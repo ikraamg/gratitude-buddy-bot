@@ -3,6 +3,7 @@
 class Entries
   attr_reader :user, :file
   @@users = []
+  @@file = './db/users.txt'
 
   def initialize(user)
     @user = user
@@ -11,7 +12,7 @@ class Entries
   end
 
   def self.users
-    @@users = File.read(@file).split("\n")
+    @@users = File.read(@@file).split("\n")
   end
 
   def remove_user(usr)
@@ -45,6 +46,8 @@ class Entries
   # end
   # private
 end
+
+puts Entries.users
 
 # iks = Entries.new('Ikraam')
 # print Entries.users
