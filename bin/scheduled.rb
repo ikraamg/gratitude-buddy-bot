@@ -1,11 +1,10 @@
 #!/usr/bin/env ruby
 require 'telegram/bot'
 require_relative '../lib/entries.rb'
+require 'dotenv/load'
 file_data = File.read('./db/quotes.txt').split("\n")
 
-token = '1231002234:AAGAlG8tDpS6M7JOe9WNeEJWvCQVglvLJV0'
-
-token = '1231002234:AAGAlG8tDpS6M7JOe9WNeEJWvCQVglvLJV0'
+token = ENV['TELEGRAM_API_KEY']
 
 loop do
   users = Entries.users

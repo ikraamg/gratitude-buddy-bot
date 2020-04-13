@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 require 'telegram/bot'
+require 'dotenv/load'
 load './lib/entries.rb'
 load './lib/write.rb'
 load './lib/store_message.rb'
 file_data = File.read('./db/quotes.txt').split("\n")
 
-token = '1231002234:AAGAlG8tDpS6M7JOe9WNeEJWvCQVglvLJV0'
+token = ENV['TELEGRAM_API_KEY']
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message|
