@@ -12,7 +12,7 @@ class StoreMessage
   end
 
   def self.get_messages(user)
-    File.read("./db/#{user}").split("\n")
+    File.read("./db/#{user}").split("\n") if File.file?("./db/#{user}")
   end
 end
 
