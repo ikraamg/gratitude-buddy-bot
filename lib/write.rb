@@ -3,6 +3,8 @@
 require_relative 'entries.rb'
 
 class Write < Entries
+  @@file = './db/write_state.txt'
+
   def initialize(user)
     @user = user
     @file = './db/write_state.txt'
