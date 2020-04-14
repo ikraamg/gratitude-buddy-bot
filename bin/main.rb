@@ -33,14 +33,14 @@ Telegram::Bot::Client.run(token) do |bot|
       bot.api.send_message(chat_id: chat_id, text: 'New-Entry Cancelled ')
 
     when %r{^/view}
-      bot.api.send_message(chat_id: chat_id, text: " Here are the entries: #{StoreMessage.get_messages(chat_id)}")
+      bot.api.send_message(chat_id: chat_id, text: " Here is your journal entries: #{StoreMessage.get_messages(chat_id)}")
 
     when %r{^/quote}
       bot.api.send_message(chat_id: chat_id, text: (file_data[rand(1...file_data.size)]).to_s)
     else
       if Write.in_write_state?(chat_id)
         Write.new(chat_id).remove_user(chat_id)
-        StoreMessage.new(message, message.text.to_s).store_message
+        StoreMessage.new(message).store_message
         bot.api.send_message(chat_id: chat_id, text: "I'm happy for you! I've saved your entry, if you would like to have a look at your entries you can send me /view")
       end
     end
