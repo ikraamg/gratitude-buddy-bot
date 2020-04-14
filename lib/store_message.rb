@@ -1,8 +1,12 @@
+require_relative './database_management'
+
 class StoreMessage
-  def initialize(message_object, message)
+  include DatabaseManagement
+
+  def initialize(message_object, _message)
     @user = message_object.chat.id
     @date = Time.at(message_object.date).strftime('%e %b %Y %k:%M')
-    @message = message
+    @message = message_object.text.to_s
   end
 
   # def store_message
@@ -13,7 +17,7 @@ class StoreMessage
 
   def store_message
     f = File.new("./db/#{@user}", 'a')
-    f.write("#{@date}: #{@message}")
+    f.write("#{@date}: #{@message}\n")
     f.close
   end
 
@@ -21,7 +25,7 @@ class StoreMessage
     string_out = "\n"
     entries = File.read("./db/#{user}").split("\n") if File.file?("./db/#{user}")
     entries.each do |entry|
-      string_out += "\n#{entry}\n\n"
+      string_out += "\n#{entry}\n"
     end
     string_out
   end
