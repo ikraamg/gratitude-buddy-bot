@@ -1,8 +1,5 @@
 require_relative './database_management'
 
-# include DatabaseManagement
-# puts file_exists?('fishy')
-
 class StoreMessage
   include DatabaseManagement
 
@@ -29,4 +26,3 @@ class StoreMessage
 end
 
 # StoreMessage.new(296_643_681, 'hi there!').store_message
-# p StoreMessage.get_messages(296_643_681)
