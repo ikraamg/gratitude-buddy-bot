@@ -1,23 +1,23 @@
 module DatabaseManagement
-  DATA_LOCATION = './db/'.freeze
+  DATA_FOLDER = './db/'.freeze
 
   def append_to_file(file_name, entry)
-    f = File.new("#{DATA_LOCATION}#{file_name}.txt", 'a')
+    f = File.new("#{DATA_FOLDER}#{file_name}.txt", 'a')
     f.write("#{entry}\n")
     f.close
     'appended'
   end
 
   def file_to_array(file_name)
-    File.read("#{DATA_LOCATION}#{file_name}.txt").split("\n")
+    File.read("#{DATA_FOLDER}#{file_name}.txt").split("\n")
   end
 
   def file_exists?(file_name)
-    File.file?("#{DATA_LOCATION}#{file_name}.txt")
+    File.file?("#{DATA_FOLDER}#{file_name}.txt")
   end
 
   def overwrite_file(file_name, new_array)
-    f = File.new("#{DATA_LOCATION}#{file_name}.txt", 'w')
+    f = File.new("#{DATA_FOLDER}#{file_name}.txt", 'w')
     new_array.each do |item|
       f.write("#{item}\n")
     end
