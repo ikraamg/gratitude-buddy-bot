@@ -8,12 +8,14 @@ module DatabaseManagement
     'appended'
   end
 
-  def file_to_array(file_name)
-    File.read("#{DATA_FOLDER}#{file_name}.txt").split("\n")
-  end
-
   def file_exists?(file_name)
     File.file?("#{DATA_FOLDER}#{file_name}.txt")
+  end
+
+  def file_to_array(file_name)
+    return unless file_exists?(file_name)
+
+    File.read("#{DATA_FOLDER}#{file_name}.txt").split("\n")
   end
 
   def overwrite_file(file_name, new_array)
@@ -26,6 +28,8 @@ module DatabaseManagement
   end
 
   def contained_in_file?(file_name, entry)
+    return unless file_exists?(file_name)
+
     file_to_array(file_name).include?(entry.to_s) ? true : false
   end
 
