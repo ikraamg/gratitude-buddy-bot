@@ -10,12 +10,14 @@ class StateManager
     @state_managed = state_managed
   end
 
-  def true_state
-    append_to_file(@state_managed, @chat_id)
-  end
-
   def state?
     contained_in_file?(@state_managed, @chat_id)
+  end
+
+  def true_state
+    return if state?
+
+    append_to_file(@state_managed, @chat_id)
   end
 
   def false_state
