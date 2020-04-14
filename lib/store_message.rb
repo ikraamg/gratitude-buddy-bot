@@ -1,5 +1,8 @@
 require_relative './database_management'
 
+# include DatabaseManagement
+# puts file_exists?('fishy')
+
 class StoreMessage
   include DatabaseManagement
 
@@ -10,15 +13,15 @@ class StoreMessage
   end
 
   def store_message
-    f = File.new("./db/#{@user}", 'a')
-    f.write("#{@date}: #{@message}\n")
-    f.close
+    date_and_message = "#{@date}: #{@message}\n"
+    append_to_file(@user, date_and_message)
   end
 
-  def self.get_messages(user)
+  def messages
+    return unless file_exists?(@user)
+
     string_out = "\n"
-    entries = File.read("./db/#{user}").split("\n") if File.file?("./db/#{user}")
-    entries.each do |entry|
+    file_to_array(@user).each do |entry|
       string_out += "\n#{entry}\n"
     end
     string_out

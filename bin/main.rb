@@ -33,7 +33,7 @@ Telegram::Bot::Client.run(token) do |bot|
       bot.api.send_message(chat_id: chat_id, text: 'New-Entry Cancelled ')
 
     when %r{^/view}
-      bot.api.send_message(chat_id: chat_id, text: " Here is your journal entries: #{StoreMessage.get_messages(chat_id)}")
+      bot.api.send_message(chat_id: chat_id, text: " Here is your journal entries: #{StoreMessage.new(message).messages}")
 
     when %r{^/quote}
       bot.api.send_message(chat_id: chat_id, text: (file_data[rand(1...file_data.size)]).to_s)
