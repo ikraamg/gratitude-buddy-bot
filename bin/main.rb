@@ -13,7 +13,7 @@ Telegram::Bot::Client.run(token) do |bot|
     chat_id = message.chat.id
     case message.text
     when %r{^/start}
-      sent_message = bot.api.send_message(chat_id: chat_id, text: "Hi there!\nGreat to meet you #{message.from.first_name} 😁 \nI'm going to send you a little gratitude quote everyday. Get one immediately by typing /quote\nYou can write or view a gratitude entry by typing /write and /view\nIf you would like me to pause or re-start the reminders, you can reply with /stop and /start")
+      bot.api.send_message(chat_id: chat_id, text: "Hi there!\nGreat to meet you #{message.from.first_name} 😁 \nI'm going to send you a little gratitude quote everyday. Get one immediately by typing /quote\nYou can write or view a gratitude entry by typing /write and /view\nIf you would like me to pause or re-start the quotes, you can reply with /stop and /start")
       Entries.new(chat_id)
       puts message.from.first_name
 
@@ -40,9 +40,15 @@ Telegram::Bot::Client.run(token) do |bot|
     else
       if Write.in_write_state?(chat_id)
         Write.new(chat_id).remove_user(chat_id)
-        StoreMessage.new(chat_id, message.text).store_message
+        StoreMessage.new(message, message.text.to_s).store_message
         bot.api.send_message(chat_id: chat_id, text: "I'm happy for you! I've saved your entry, if you would like to have a look at your entries you can send me /view")
       end
     end
+    # puts message.text
+    # puts message.message_id
+    # puts message.chat
+    # puts message.chat.id
+    # puts message.from.first_name
+    # puts Time.at(message.date).strftime('%e %b %Y %k:%M')
   end
 end
