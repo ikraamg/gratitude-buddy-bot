@@ -16,6 +16,7 @@ Telegram::Bot::Client.run(token) do |bot|
 
       StateManager.new(message, 'users').true_state
       StateManager.new(message, 'writers').false_state
+      StateManager.new(message, 'deleters').false_state
 
       # logging
       puts message.from.first_name
@@ -25,31 +26,45 @@ Telegram::Bot::Client.run(token) do |bot|
 
       StateManager.new(message, 'users').false_state
       StateManager.new(message, 'writers').false_state
+      StateManager.new(message, 'deleters').false_state
 
     when %r{^/write}
       bot.api.send_message(chat_id: chat_id, text: "What are you grateful for?\n(I will randomly remind you of this entry in the future to bring a smile to your face 🥳)\nTo cancel this entry type /cancel")
 
-      # Write.new(chat_id)
       StateManager.new(message, 'writers').true_state
+      StateManager.new(message, 'deleters').false_state
 
     when %r{^/cancel}
       StateManager.new(message, 'writers').false_state
 
-      bot.api.send_message(chat_id: chat_id, text: 'New-Entry Cancelled ')
+      bot.api.send_message(chat_id: chat_id, text: 'Cancelled Operation')
       StateManager.new(message, 'writers').false_state
+      StateManager.new(message, 'deleters').false_state
 
     when %r{^/view}
-      bot.api.send_message(chat_id: chat_id, text: " Here is your journal entries: #{StoreMessage.new(message).messages}")
-      StateManager.new(message, 'writers').false_state
+      bot.api.send_message(chat_id: chat_id, text: " Here are your journal entries: #{StoreMessage.new(message).messages}")
+      StateManager.new(message, 'writers')
+      StateManager.new(message, 'deleters').false_state
 
     when %r{^/quote}
       bot.api.send_message(chat_id: chat_id, text: (file_data[rand(1...file_data.size)]).to_s)
       StateManager.new(message, 'writers').false_state
+      StateManager.new(message, 'deleters').false_state
+
+    when %r{^/delete}
+      StateManager.new(message, 'deleters').true_state
+
+      bot.api.send_message(chat_id: chat_id, text: "Reply with the journal entry number to delete: #{StoreMessage.new(message).messages}")
+
     else
       if StateManager.new(message, 'writers').state?
         StateManager.new(message, 'writers').false_state
         StoreMessage.new(message).store_message
         bot.api.send_message(chat_id: chat_id, text: "I'm happy for you! I've saved your entry, if you would like to have a look at your entries you can send me /view")
+      elsif StateManager.new(message, 'deleters').state?
+        StateManager.new(message, 'deleters').false_state
+        StoreMessage.new(message).delete_message(message.text.to_i) # need to put safety net here. Try and catch ruby?
+        bot.api.send_message(chat_id: chat_id, text: 'Entry deleted!')
       end
     end
   end

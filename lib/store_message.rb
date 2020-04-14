@@ -10,16 +10,23 @@ class StoreMessage
   end
 
   def store_message
-    date_and_message = "#{@date}: #{@message}\n"
+    date_and_message = "#{@date}: #{@message}"
     append_to_file(@user, date_and_message)
+  end
+
+  def delete_message(index)
+    return if index.zero?
+
+    entry_to_delete = file_to_array(@user)[index - 1]
+    remove_from_file(@user, entry_to_delete)
   end
 
   def messages
     return unless file_exists?(@user)
 
     string_out = "\n"
-    file_to_array(@user).each do |entry|
-      string_out += "\n#{entry}\n"
+    file_to_array(@user).each_with_index do |entry, i|
+      string_out += "\n#{i + 1}. #{entry}\n"
     end
     string_out
   end
