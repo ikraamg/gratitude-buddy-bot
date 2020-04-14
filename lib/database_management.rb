@@ -10,6 +10,10 @@ module DatabaseManagement
     File.read("./db/#{file_name}.txt").split("\n")
   end
 
+  def file_exists?(file_name)
+    File.file?("./db/#{file_name}.txt")
+  end
+
   def overwrite_file(file_name, new_array)
     f = File.new("./db/#{file_name}.txt", 'w')
     new_array.each do |item|
@@ -44,3 +48,4 @@ end
 # puts contained_in_file?('fishy', 'thos') # false
 # puts contained_in_file?('fishy', 'this') # true
 # puts remove_from_file('fishy', 'this')
+# puts file_exists?('fishy')
