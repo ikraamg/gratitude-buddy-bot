@@ -11,7 +11,7 @@ token = ENV['TELEGRAM_API_KEY']
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message_object|
     # MessageResponder.new(bot, message_object).respond
-
+    reply_text = "OOPS, i didn't understand that, please try a using a command from /help"
     chat_id = message_object.chat.id
     case message_object.text
     when %r{^/start}
