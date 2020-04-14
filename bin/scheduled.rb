@@ -17,7 +17,9 @@ loop do
       bot.api.send_message(chat_id: user, text: "Quote of the day:\n#{file_data[rand(1...file_data.size)]}")
     end
     p user
+    sleep(1)
     i += 1
   end
+  puts Time.now
   sleep(14_400)
 end
