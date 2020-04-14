@@ -3,22 +3,47 @@ require 'telegram/bot'
 require_relative '../lib/state_manager.rb'
 require 'dotenv/load'
 
-token = ENV['TELEGRAM_API_KEY']
+# apikey = ENV['TELEGRAM_API_KEY']
 
 file_data = File.read('./db/quotes.txt').split("\n")
+
+def send_message(message, user)
+  Telegram::Bot::Client.run(ENV['TELEGRAM_API_KEY']) do |bot|
+    bot.api.send_message(chat_id: user, text: message)
+  end
+end
 
 loop do
   users = StateManager.items_in_managed_state('users')
 
   users.each do |user|
-    Telegram::Bot::Client.run(token) do |bot|
-      bot.api.send_message(chat_id: user, text: "Quote of the day:\n#{file_data[rand(1...file_data.size)]}")
-    end
+    send_message("Quote of the day:\n#{file_data[rand(0...file_data.size)]}", user)
+    p user
+    sleep(1)
+  end
+  puts 'quote sent'
+  puts Time.now
+  sleep(28_800)
 
+  users.each do |user|
+    send_message("What were you grateful for today? 😊\nSend /write to log an entry", user)
+    p user
+    sleep(1)
+  end
+  puts 'write reminder'
+  puts Time.now
+  sleep(28_800)
+
+  users.each do |user|
+    next unless File.file?("./db/#{user}.txt")
+
+    user_entries = File.read("./db/#{user}.txt").split("\n")
+    send_message("A past entry from your gratitude journal 🥳:\n #{user_entries[rand(0...user_entries.size)]}", user)
     p user
     sleep(1)
   end
 
+  puts 'past entry reminder'
   puts Time.now
-  sleep(14_400)
+  sleep(28_800)
 end
