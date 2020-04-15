@@ -37,6 +37,14 @@ class MessageResponder
     StateManager.new(message_object, 'deleters').true_state
   end
 
+  def in_write_state?
+    StateManager.new(message_object, 'writers').state?
+  end
+
+  def in_delete_state?
+    StateManager.new(message_object, 'deleters').state?
+  end
+
   public
 
   def start
@@ -89,25 +97,17 @@ smile to your face 🥳)\nTo cancel this entry type /cancel"
     "Reply with the journal entry number to delete: #{StoreMessage.new(message_object).messages}"
   end
 
-  def in_write_state?
-    StateManager.new(message_object, 'writers').state?
-  end
-
-  def in_delete_state?
-    StateManager.new(message_object, 'deleters').state?
-  end
-
   def journal_editor
     if in_write_state?
-      StoreMessage.new(message_object).store_message
       clear_operational_states
+      StoreMessage.new(message_object).store_message
 
       "I'm happy for you! I've saved your entry, if you would like to have a look at your entries \
 you can send me /view"
 
     elsif in_delete_state?
-      StoreMessage.new(message_object).delete_message(message_object.text.to_i)
       clear_operational_states
+      StoreMessage.new(message_object).delete_message(message_object.text.to_i)
 
       'Entry deleted!'
     end
