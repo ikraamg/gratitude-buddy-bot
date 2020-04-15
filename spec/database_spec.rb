@@ -30,4 +30,25 @@ RSpec.describe DatabaseManagement do
       expect(contained_in_file?(test_file, test_line2)).not_to be true
     end
   end
+
+  describe '#append_to_file' do
+    it 'appends file and returns confirmation if no errors occured' do
+      expect(append_to_file('new_file', 'test line')).to eq('appended')
+    end
+  end
+
+  describe '#overwrite_file' do
+    it 'overites file with an array and returns confirmation if no errors occured' do
+      expect(overwrite_file('new_file', ['test line'])).to eq('overwritten')
+    end
+  end
+
+  describe '#remove_from_file' do
+    it 'removes entry from file and returns confirmation if no errors occured' do
+      expect(remove_from_file('new_file', 'test line')).to eq('removed')
+    end
+    it "returns 'not found' when the entry is not contained if file" do
+      expect(remove_from_file('new_file', 'test line')).to eq('not found')
+    end
+  end
 end
