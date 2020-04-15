@@ -37,11 +37,9 @@ This class allows the bot to know what each user would like to do. It creates a 
 - Rspec(code testing)
 - Rubocop(code linting)
 
-## Testing and demo
+## Demo
 
 [Link to Bot](http://t.me/gratitude_buddy_bot)
-
-Unit tests were built in Rspec to test the DB module as well as the important public methods in the classes: ---------------------
 
 ## Getting Started
 
@@ -50,17 +48,18 @@ To get a local copy up and running follow these steps:
 ### Prerequisites
 
 - Ruby installed on local machine
+- Install the follwing gems:
 
--
+``` Ruby
+  gem 'telegram-bot-ruby'
+  gem install dotenv
+  gem install rspec
+```
 
 ### Usage
 
-- Fork/Clone this project to your local machine
-- Open enumarable_methods.rb in your local enviroment and run this code:
-
-``` Ruby
-
-```
+- Fork/Clone this project to your local machine.
+- Unit tests were built in Rspec, test using ```rspec``` in root directory of the project.
 
 ## Authors
 
