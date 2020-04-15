@@ -28,6 +28,3 @@ class StateManager
     file_to_array(state_managed)
   end
 end
-
-# #Tests
-# puts StateManager.items_in_managed_state('users')

@@ -20,8 +20,5 @@ Telegram::Bot::Client.run(token) do |bot|
 
     reply ||= MessageResponder.default_reply
     bot.api.send_message(chat_id: message_object.chat.id, text: reply)
-
-    # logging
-    puts message_object.from.first_name
   end
 end

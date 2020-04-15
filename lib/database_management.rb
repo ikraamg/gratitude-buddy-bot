@@ -44,14 +44,3 @@ module DatabaseManagement
     end
   end
 end
-
-## Tests
-# include DatabaseManagement
-
-# append_to_file('fishy', 51_103_543)
-# file_to_array('fishy')
-# overwrite_file('fishy', %w[this actually works])
-# puts contained_in_file?('fishy', 'thos') # false
-# puts contained_in_file?('fishy', 'this') # true
-# puts remove_from_file('fishy', 'this')
-# puts file_exists?('fishy')

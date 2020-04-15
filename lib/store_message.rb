@@ -31,5 +31,3 @@ class StoreMessage
     string_out
   end
 end
-
-# StoreMessage.new(296_643_681, 'hi there!').store_message
