@@ -4,16 +4,12 @@ require_relative '../lib/store_message.rb'
 class MessageResponder
   private
 
-  # attr_reader :text
-  # attr_reader :bot
   attr_reader :message_object
   attr_reader :chat_id
 
   def initialize(message_object)
-    # @bot = bot
     @message_object = message_object
     @chat_id = message_object.chat.id
-    # @text = message_object.text
   end
 
   def clear_operational_states
@@ -117,19 +113,3 @@ you can send me /view"
     end
   end
 end
-# MessageResponder.new(message_object).start
-
-#  def respond
-#     @bot.api.send_message(chat_id: @chat_id, text: text_reply)
-#   end
-# append_to_file_without_duplicates('state_names', @state_managed)
-
-# @@state_names = file_to_array('state_names')
-
-#  def self.state_names
-#     @@state_names
-#   end
-
-# def append_to_file_without_duplicates(file_name, entry)
-#   append_to_file if contained_in_file?(file_name, entry)
-# end
