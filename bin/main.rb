@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 require 'telegram/bot'
 require 'dotenv/load'
-require_relative '../lib/state_manager.rb'
-require_relative '../lib/store_message.rb'
 require_relative '../lib/message_responder.rb'
 
 token = ENV['TELEGRAM_API_KEY']
