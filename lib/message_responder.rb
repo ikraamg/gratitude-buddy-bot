@@ -51,38 +51,46 @@ class MessageResponder
     clear_operational_states
     user_on_shedule
 
-    "Hi there!\nGreat to meet you #{message_object.from.first_name} 😁 \nI'm going to send you a little \
-gratitude quote everyday. Get one immediately by typing /quote\nYou can write or view a gratitude entry by \
-typing /write and /view\nIf you would like me to pause or re-start the quotes, you can \
-reply with /stop and /start"
+    "Hi there!\nGreat to meet you #{message_object.from.first_name} 😁\n\nI'm going to send you a little \
+gratitude quote everyday.\nGet one immediately by typing /quote\n\nYou can write or view a gratitude entries by \
+typing /write and /view\n\nIf you would like me to pause the notifications, you can \
+reply with /stop.\n\nFor a full list of commands, send me /help"
   end
 
   def help
     clear_operational_states
-    "Here is a list of available commands:\n/start\n/stop\n/write\n/delete\n/view"
+    "Here is a list of available commands:
+/start - enable notifications
+/stop - stop notifications
+/write - make an entry
+/view - view all your entries
+/delete - delete and entry
+/cancel - cancel writing or deleting
+/quote - send a quote"
   end
 
   def stop
     clear_operational_states
     user_off_shedule
-    "Your reminders are now paused. Catch you later, #{message_object.from.first_name}"
+    "Your reminders are now paused, you can send me /start to continue them.
+Catch you later, #{message_object.from.first_name}"
   end
 
   def write
     clear_operational_states
     write_state
-    "What are you grateful for?\n(I will randomly remind you of this entry in the future to bring a \
-smile to your face 🥳)\nTo cancel this entry type /cancel"
+    "What are you grateful for?😊\nTo cancel this entry type /cancel"
   end
 
   def cancel
     clear_operational_states
-    'Cancelled Operation'
+    'Cancelled previous operation'
   end
 
   def view
     clear_operational_states
-    "Here are your journal entries: #{StoreMessage.new(message_object).messages}"
+    "Here are your journal entries: #{StoreMessage.new(message_object).messages}
+If you would like to remove one, type /delete"
   end
 
   def quote
@@ -102,8 +110,8 @@ smile to your face 🥳)\nTo cancel this entry type /cancel"
       clear_operational_states
       StoreMessage.new(message_object).store_message
 
-      "I'm happy for you! I've saved your entry, if you would like to have a look at your entries \
-you can send me /view"
+      "I'm happy for you!
+I've saved your entry, if you would like to have a look at your entries, you can send me /view"
 
     elsif in_delete_state?
       clear_operational_states
