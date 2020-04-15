@@ -47,6 +47,10 @@ class MessageResponder
 
   public
 
+  def self.default_reply
+    "Oops, I didn't understand that. Please try sending me one of the commands from /help"
+  end
+
   def start
     clear_operational_states
     user_on_shedule
@@ -109,7 +113,7 @@ you can send me /view"
       clear_operational_states
       StoreMessage.new(message_object).delete_message(message_object.text.to_i)
 
-      'Entry deleted!'
+      "Deleted! #{view}"
     end
   end
 end
