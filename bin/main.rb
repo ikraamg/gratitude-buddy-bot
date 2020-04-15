@@ -1,69 +1,39 @@
 #!/usr/bin/env ruby
-# rubocop: disable Metrics/BlockLength
 require 'telegram/bot'
 require 'dotenv/load'
 require_relative '../lib/state_manager.rb'
 require_relative '../lib/store_message.rb'
-file_data = File.read('./db/quotes.txt').split("\n")
+require_relative '../lib/message_responder.rb'
 
 token = ENV['TELEGRAM_API_KEY']
 
 Telegram::Bot::Client.run(token) do |bot|
   bot.listen do |message_object|
-    # MessageResponder.new(bot, message_object).respond
-    reply_text = "OOPS, i didn't understand that, please try a using a command from /help"
     chat_id = message_object.chat.id
     case message_object.text
     when %r{^/start}
+      reply_text = MessageResponder.new(message_object).start
 
-      reply_text = "Hi there!\nGreat to meet you #{message_object.from.first_name} 😁 \nI'm going to send you a little \
-      gratitude quote everyday. Get one immediately by typing /quote\nYou can write or view a gratitude entry by \
-      typing /write and /view\nIf you would like me to pause or re-start the quotes, you can \
-      reply with /stop and /start"
-
-      StateManager.new(message_object, 'users').true_state
-      StateManager.new(message_object, 'writers').false_state
-      StateManager.new(message_object, 'deleters').false_state
+    when %r{^/help}
+      reply_text = MessageResponder.new(message_object).help
 
     when %r{^/stop}
-      reply_text = "Your reminders are now paused. Catch you later, #{message_object.from.first_name}"
-
-      StateManager.new(message_object, 'users').false_state
-      StateManager.new(message_object, 'writers').false_state
-      StateManager.new(message_object, 'deleters').false_state
+      reply_text = MessageResponder.new(message_object).stop
 
     when %r{^/write}
-
-      reply_text = "What are you grateful for?\n(I will randomly remind you of this entry in the future to bring a \
-      smile to your face 🥳)\nTo cancel this entry type /cancel"
-
-      StateManager.new(message_object, 'writers').true_state
-      StateManager.new(message_object, 'deleters').false_state
+      reply_text = MessageResponder.new(message_object).write
 
     when %r{^/cancel}
-
-      reply_text = 'Cancelled Operation'
-
-      StateManager.new(message_object, 'writers').false_state
-      StateManager.new(message_object, 'deleters').false_state
+      reply_text = MessageResponder.new(message_object).cancel
 
     when %r{^/view}
-      reply_text = " Here are your journal entries: #{StoreMessage.new(message_object).messages}"
-
-      StateManager.new(message_object, 'writers').false_state
-      StateManager.new(message_object, 'deleters').false_state
+      reply_text = MessageResponder.new(message_object).view
 
     when %r{^/quote}
-      reply_text = (file_data[rand(1...file_data.size)]).to_s
-
-      StateManager.new(message_object, 'writers').false_state
-      StateManager.new(message_object, 'deleters').false_state
+      reply_text = MessageResponder.new(message_object).quote
 
     when %r{^/delete}
-
-      reply_text = "Reply with the journal entry number to delete: #{StoreMessage.new(message_object).messages}"
-
-      StateManager.new(message_object, 'deleters').true_state
+      reply_text = MessageResponder.new(message_object).delete
 
     else
       if StateManager.new(message_object, 'writers').state?
@@ -79,9 +49,9 @@ Telegram::Bot::Client.run(token) do |bot|
         reply_text = 'Entry deleted!'
       end
     end
+    reply_text ||= "OOPS, i didn't understand that, please try a using a command from /help"
     bot.api.send_message(chat_id: chat_id, text: reply_text)
     # logging
     puts message_object.from.first_name
   end
 end
-# rubocop: enable Metrics/BlockLength
