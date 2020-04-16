@@ -4,6 +4,8 @@
 
 > A Ruby-based Telegram bot was built to be a [gratitude journal](https://en.wikipedia.org/wiki/Gratitude_journal) and gratitude reminder bot. I've chosen this project due to the impact that gratitude journaling has had on my life. It has scientifically-backed evidence to show that it improves one's well being. I hope to make this bot permanently running so anyone can use it.
 
+[Video of Presentation](https://www.loom.com/share/ac679df7d59c48bd82f977affefc8843)
+
 ### Features
 
 1. Allows the user to create, view and delete journal/text entries.
