@@ -4,15 +4,31 @@
 
 > A Ruby-based Telegram bot was built to be a [gratitude journal](https://en.wikipedia.org/wiki/Gratitude_journal) and gratitude reminder bot. I've chosen this project due to the impact that gratitude journaling has had on my life. It has scientifically-backed evidence to show that it improves one's well being. I hope to make this bot permanently running so anyone can use it.
 
-### It has the following features
+### Features
 
 1. Allows the user to create, view and delete journal/text entries.
 
-2. Gives scheduled reminders every 8 hours and repeats every the three reminders every 24 hours:
+2. Gives scheduled reminders every 8 hours and repeats the three reminders every 24 hours. The three reminders are:
 
 - A quote
 - A reminder to write an entry into their journal.
 - A reminder of what they wrote at random.
+
+### How to use
+
+1. Open the bot with the [gratitude_buddy_bot](http://t.me/gratitude_buddy_bot) telegram page.
+
+2. Send the '/help' message to the bot for a list of functional details. Here is a summary:
+
+- /start - enable notifications
+- /stop - stop notifications
+- /write - make an entry
+- /view - view all your entries
+- /delete - delete and entry
+- /cancel - cancel writing or deleting
+- /quote - send a quote
+
+### How it works
 
 The bot consists of two parts running together.
 Part 1 (main.rb) waits for the messages from users and will reply.
@@ -47,14 +63,23 @@ To get a local copy up and running follow these steps:
 
 ### Prerequisites
 
-- Ruby installed on local machine
-- Install the follwing gems:
+- Ruby [installed](https://www.ruby-lang.org/en/documentation/installation/) on local machine
+- Forking the project
+- Cloning the project to your local machine
+- `cd` into the project directory
+- Install the gems in the Gemfile by using the ```bundle install``` in the root folder terminal
+
+OR, install the gems system-wide by using:
 
 ``` Ruby
-  gem 'telegram-bot-ruby'
+  gem install telegram-bot-ruby
   gem install dotenv
   gem install rspec
 ```
+
+- After intalling gems, create a .env file in your root folder and on the first line place:
+```TELEGRAM_API_KEY= 'YOUR-TELEGRAM-API-KEY'```
+after getting your api key by using [BotFather](https://core.telegram.org/bots) from the [Telegram API docs](https://core.telegram.org/bots)
 
 ### Usage
 
