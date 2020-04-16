@@ -12,25 +12,26 @@ def send_message(message, user)
   end
 end
 
-loop do
-  users = StateManager.items_in_managed_state('users')
+def user_list
+  StateManager.items_in_managed_state('users')
+end
 
+loop do
+  users = user_list
   users.each do |user|
     send_message("Quote of the day:\n#{file_data[rand(0...file_data.size)]}", user)
     sleep(1)
   end
   sleep(28_800)
 
-  users = StateManager.items_in_managed_state('users')
-
+  users = user_list
   users.each do |user|
     send_message("What were you grateful for today? 😊\nSend /write to log an entry", user)
     sleep(1)
   end
   sleep(28_800)
 
-  users = StateManager.items_in_managed_state('users')
-
+  users = user_list
   users.each do |user|
     next unless File.file?("./db/#{user}.txt")
 
