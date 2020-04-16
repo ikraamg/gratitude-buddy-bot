@@ -76,7 +76,7 @@ with with the contained_in_file? method" do
       expect(contained_in_file?(test_file3, test_file3)).to be false
     end
 
-    it "returns 'not found' when the entry is not contained if file" do
+    it "returns 'not found' when the entry is not contained in file" do
       expect(remove_from_file(test_file3, 'test line2')).to eq('not found')
     end
   end
