@@ -18,27 +18,51 @@ end
 
 loop do
   users = user_list
+
   users.each do |user|
-    send_message("Quote of the day:\n#{file_data[rand(0...file_data.size)]}", user)
+    begin
+      send_message("Quote of the day:\n#{file_data[rand(0...file_data.size)]}", user)
+    rescue StandardError
+      p 'Unable to send to:'
+    end
+    p user
     sleep(1)
   end
+  puts 'quote sent'
+  puts Time.now
   sleep(28_800)
 
   users = user_list
+
   users.each do |user|
-    send_message("What were you grateful for today? 😊\nSend /write to log an entry", user)
+    begin
+      send_message("What were you grateful for today? 😊\nSend /write to log an entry", user)
+    rescue StandardError
+      p 'Unable to send to:'
+    end
+    p user
     sleep(1)
   end
+  puts 'write reminder'
+  puts Time.now
   sleep(28_800)
 
   users = user_list
+
   users.each do |user|
     next unless File.file?("./db/#{user}.txt")
 
     user_entries = File.read("./db/#{user}.txt").split("\n")
-    send_message("A past entry from your gratitude journal 🥳:\n #{user_entries[rand(0...user_entries.size)]}", user)
+    begin
+      send_message("A past entry from your gratitude journal 🥳:\n #{user_entries[rand(0...user_entries.size)]}", user)
+    rescue StandardError
+      p 'Unable to send to:'
+    end
+    p user
     sleep(1)
   end
 
+  puts 'past entry reminder'
+  puts Time.now
   sleep(28_800)
 end
