@@ -54,11 +54,16 @@ class MessageResponder
     "Hi there!\nGreat to meet you #{message_object.from.first_name} 😁\n\nI'm going to send you a little \
 gratitude quote everyday.\nGet one immediately by typing /quote\n\nYou can write or view a gratitude entries by \
 typing /write and /view\n\nIf you would like me to pause the notifications, you can \
-reply with /stop.\n\nFor a full list of commands, send me /help"
+reply with /stop.\n\nFor a full list of commands, send me /help
+If you have any suggestions on how I can be improved, you can contact me with /dev"
   end
 
   def dev
-    "👤 Ikraam Ghoor
+    "Hi! I am 👤 Ikraam Ghoor, the creator of this bot!
+I am a freelance developer and engineer.
+Feel free to send me suggestions for this bot.
+
+You can contant me over here:
 - Github: https://github.com/ikraamg
 - Twitter: https://twitter.com/GhoorIkraam
 - LinkedIn: https://linkedin.com/isghoor
@@ -74,7 +79,8 @@ reply with /stop.\n\nFor a full list of commands, send me /help"
 /view - view all your entries
 /delete - delete and entry
 /cancel - cancel writing or deleting
-/quote - send a quote"
+/quote - send a quote
+/dev - info on my developer"
   end
 
   def stop
