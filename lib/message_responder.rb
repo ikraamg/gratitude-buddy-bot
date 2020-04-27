@@ -57,6 +57,14 @@ typing /write and /view\n\nIf you would like me to pause the notifications, you 
 reply with /stop.\n\nFor a full list of commands, send me /help"
   end
 
+  def dev
+    "👤 Ikraam Ghoor
+- Github: https://github.com/ikraamg
+- Twitter: https://twitter.com/GhoorIkraam
+- LinkedIn: https://linkedin.com/isghoor
+- Email: consult.ikraam@gmail.com"
+  end
+
   def help
     clear_operational_states
     "Here is a list of available commands:
