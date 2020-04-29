@@ -55,15 +55,16 @@ class MessageResponder
 gratitude quote everyday.\nGet one immediately by typing /quote\n\nYou can write or view a gratitude entries by \
 typing /write and /view\n\nIf you would like me to pause the notifications, you can \
 reply with /stop.\n\nFor a full list of commands, send me /help
-If you have any suggestions on how I can be improved, you can contact me with /dev"
+
+If you have any suggestions on how I can be improved, please find my details with /dev"
   end
 
   def dev
-    "Hi! I am 👤 Ikraam Ghoor, the creator of this bot!
+    "Hi! I am 👤 Ikraam Ghoor, the creator of this bot.
 I am a freelance developer and engineer.
-Feel free to send me suggestions for this bot.
+Feel free to contact me or send me suggestions:
 
-You can contant me over here:
+- Telegram: https://t.me/ConsultIkraam
 - Github: https://github.com/ikraamg
 - Twitter: https://twitter.com/GhoorIkraam
 - LinkedIn: https://linkedin.com/isghoor
@@ -93,7 +94,7 @@ Catch you later, #{message_object.from.first_name}"
   def write
     clear_operational_states
     write_state
-    "What are you grateful for?😊\nTo cancel this entry type /cancel"
+    "What are you grateful for in this moment?😊\nTo cancel this entry type /cancel"
   end
 
   def cancel
