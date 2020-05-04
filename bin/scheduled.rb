@@ -36,7 +36,7 @@ loop do
 
   users.each do |user|
     begin
-      send_message("What are you grateful for in this moment? 😊\nSend /write to log an entry", user)
+      send_message("What are you grateful for today? 😊\nSend /write to log an entry", user)
     rescue StandardError
       p 'Unable to send to:'
     end
