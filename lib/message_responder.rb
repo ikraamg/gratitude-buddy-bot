@@ -125,8 +125,7 @@ If you would like to remove one, type /delete"
       clear_operational_states
       StoreMessage.new(message_object).store_message
 
-      "I'm happy for you!
-I've saved your entry, if you would like to have a look at your entries, you can send me /view"
+      "I've saved your entry, if you would like to have a look at your entries, you can send me /view"
 
     elsif in_delete_state?
       clear_operational_states

@@ -11,7 +11,7 @@ begin
       reply = case message_object.text
               when %r{^/}
                 begin
-                  MessageResponder.new(message_object).send(message_object.text[1..6])
+                  MessageResponder.new(message_object).send(message_object.text[1..20])
                 rescue StandardError
                   MessageResponder.default_reply
                 end
