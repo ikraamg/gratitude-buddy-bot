@@ -6,6 +6,8 @@
 
 [Video of Presentation](https://www.loom.com/share/ac679df7d59c48bd82f977affefc8843)
 
+![Screenshot](https://user-images.githubusercontent.com/34813339/87234247-7d890600-c3cf-11ea-983c-04f170368d07.png)
+
 ### Features
 
 1. Allows the user to create, view and delete journal/text entries.
