@@ -21,10 +21,16 @@ begin
 
       reply ||= MessageResponder.default_reply
       begin
+        if (reply.length > 4096)
+          while reply.length > 4096
+            response = reply.slice!(0..4095)
+            bot.api.send_message(chat_id: message_object.chat.id, text: response)
+          end
+        end
         bot.api.send_message(chat_id: message_object.chat.id, text: reply)
-      rescue StandardError
+      rescue StandardError => e
         puts 'failed for this user with:'
-        puts StandardError
+        puts e
       end
 
       # logging
