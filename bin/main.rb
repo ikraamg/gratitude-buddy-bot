@@ -5,9 +5,12 @@ require_relative '../lib/message_responder.rb'
 
 token = ENV['TELEGRAM_API_KEY']
 retry_attempts = 0
+p "server started"
 begin
   Telegram::Bot::Client.run(token) do |bot|
     bot.listen do |message_object|
+      next unless message_object.class == Telegram::Bot::Types::Message
+
       reply = case message_object.text
               when %r{^/}
                 begin
@@ -37,10 +40,11 @@ begin
       puts message_object.from.first_name
     end
   end
-rescue StandardError
+rescue StandardError => e
   sleep(5)
+  puts e
+
   retry_attempts += 1
-  puts "Timeout error number: #{retry_attempts}
-Retrying connection to Telegram API"
-  retry
+  puts "Erroy no: #{retry_attempts}, retrying connection to Telegram API"
+  retry unless retry_attempts > 5
 end
